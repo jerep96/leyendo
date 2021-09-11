@@ -1,0 +1,13 @@
+{% extends 'social/layout.html' %}
+
+{% block content %}
+
+<form class="form" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<div class="d-grid gap-2">
+		<button type="submit"  class="btn btn-outline-dark">Login</button>
+	</div>
+</form>
+
+{% endblock %}

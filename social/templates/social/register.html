@@ -1,0 +1,16 @@
+{% extends 'social/layout.html' %}
+
+{% block content %}
+
+<center><h4 class="p-2">{{ title }}</h4></center>
+
+<form class="form" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	{{ form.as_p }}
+
+	<div class="d-grid gap-2">
+		<button type="submit"  class="btn btn-outline-dark">{{ boton }}</button>
+	</div>
+</form>
+
+{% endblock %}

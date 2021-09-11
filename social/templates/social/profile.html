@@ -1,0 +1,131 @@
+{% extends 'social/feed.html' %}
+{% load static %}
+<script type="text/javascript" src="{% static 'nfc.js' %}"></script>
+{% block content %}
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script type="text/javascript">
+	function copiarAlPortapapeles(id_elemento) {
+
+	  // Crea un campo de texto "oculto"
+	  var aux = document.createElement("input");
+
+	  // Asigna el contenido del elemento especificado al valor del campo
+	  aux.setAttribute("value", document.getElementById(id_elemento).innerHTML);
+
+
+	  // Añade el campo a la página
+	  document.body.appendChild(aux);
+
+	  // Selecciona el contenido del campo
+	  aux.select();
+
+	  // Copia el texto seleccionado
+	  document.execCommand("copy");
+
+	  // Elimina el campo de la página
+	  document.body.removeChild(aux);
+
+	  alert("URL copiada")
+	}
+</script>
+<!-- Profile -->
+<div class="profile">
+	<img src="{{ user.profile.image.url }}">
+	<a class="btn" href="{% url 'editprofile' user %}">
+		<span class="material-icons" title="Cambiar foto">edit</span>
+	</a>
+	<h2>@{{ user.username }}</h2>	
+</div>
+
+<!-- Follow items -->
+<div class="container">
+	<div class="row">
+		<div class="col-8 offset-2 p-2">
+		<h5>Modo Activo:</h5>
+		<div class="input-group input-group-sm mb-3">
+		  <input type="text" class="form-control" disabled="true" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{user.profile.modo}}">
+		</div>
+		<h5>Color de Botones:</h5>
+		<div class="input-group input-group-sm mb-3">
+		  <input type="text" class="form-control" disabled="true" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{user.profile.colorBoton|title}}">
+		</div>
+		<h5>Color de Fondo:</h5>
+		<div class="input-group input-group-sm mb-3">
+		  <input type="text" class="form-control" disabled="true" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{user.profile.colorFondo|title}}">
+		</div>
+		<h5>URL Activa:</h5>
+		<div class="input-group input-group-sm mb-3">
+		  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  disabled="true" value="https://leyendo.online/leyendo/{{ user.profile.user }}">
+		</div>
+		<h5>Compartir:</h5>
+			<div class="input-group input-group-sm mb-3">
+						<div class="btn-group" role="group" aria-label="Basic outlined example">
+						  <a type="button" class="btn btn-outline-dark" href="https://api.whatsapp.com/send?text=https://leyendo.online/leyendo/{{ user.profile.user }}" target="_blank"> 
+						  	<span class="material-icons">whatsapp</span>
+						  </a>
+						  <a type="button" class="btn btn-outline-dark" href="https://www.facebook.com/sharer/sharer.php?u=https://leyendo.online/leyendo/{{ user.profile.user }}" target="_blank">
+						  	<span class="material-icons">facebook</span>
+						  </a>
+						  <a type="button" class="btn btn-outline-dark" href="https://www.linkedin.com/sharing/share-offsite/?url=https://leyendo.online/leyendo/{{ user.profile.user }}" target="_blank">
+						  	Linkedin
+						  </a>
+						  <p id="copy_data" style="display: none;">www.leyendo.online/leyendo/{{ user.profile.user }}</p>
+						  <button type="button" class="btn btn-outline-dark" onclick="copiarAlPortapapeles('copy_data')" id="copy_url">
+						  	<span class="material-icons">content_copy</span>
+						  </button>
+						</div>
+			</div>
+	</div>
+		<div class="d-grid gap-2">
+	<!--<button onclick="writeTag()" type="button" class="btn btn-dark bl" title="Grabar NFC">
+			<span class="material-icons">nfc</span>
+		</button>-->
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+  async function readTag() {
+  if ("NDEFReader" in window) {
+    const ndef = new NDEFReader();
+    try {
+      await ndef.scan();
+      ndef.onreading = event => {
+        const decoder = new TextDecoder();
+        for (const record of event.message.records) {
+          consoleLog("Record type:  " + record.recordType);
+          consoleLog("MIME type:    " + record.mediaType);
+          consoleLog("=== data ===\n" + decoder.decode(record.data));
+        }
+      }
+    } catch(error) {
+      consoleLog(error);
+    }
+  } else {
+    consoleLog("Web NFC is not supported.");
+  }
+}
+
+
+async function writeTag() {
+	var url = "leyendo/";
+	var urlC = "https://6809-190-182-238-248.ngrok.io/" + url;
+	console.log(urlC);
+  if ("NDEFReader" in window) {
+    const ndef = new NDEFReader();
+    try {
+      await ndef.write({ records: [{ recordType: "url", data: "https://6809-190-182-238-248.ngrok.io/" + url }]});
+      alert("NDEF message written!");
+    } catch(error) {
+      alert(error);
+    }
+  } else {
+    alert("Web NFC is not supported.");
+  }
+}
+
+</script>
+
+
+{{ block.super }}
+{% endblock %}
