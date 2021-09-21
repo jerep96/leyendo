@@ -102,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-ALLOWED_HOSTS = ['3e07-190-182-238-248.ngrok.io', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['45.90.109.107', 'localhost', '127.0.0.1']
 
 
 
