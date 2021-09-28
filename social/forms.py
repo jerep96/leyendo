@@ -23,7 +23,7 @@ COLOR = (
 	)
 
 class UserRegisterForm(UserCreationForm):
-	username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+	username = forms.CharField(label='Usuario', widget=forms.TextInput(attrs={'class':'form-control'}))
 	email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
 	password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={'class':'form-control'}))
 	password2 = forms.CharField(label='Confirma Contraseña', widget=forms.PasswordInput(attrs={'class':'form-control'}))
@@ -57,7 +57,7 @@ class EditProfileForm(forms.ModelForm):
 
 	class Meta:
 		model = Profile
-		fields = ['image', 'modo', 'colorBoton', 'colorFondo']
+		fields = ['image', 'modo', 'colorBoton', 'colorFondo', 'portada']
 
 class ModoProfileForm(forms.ModelForm):
 	
