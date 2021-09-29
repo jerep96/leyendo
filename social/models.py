@@ -53,6 +53,7 @@ class Url(models.Model):
 	title = models.TextField()
 	modo = models.CharField(default='business', max_length=50, choices=MODO)
 	content = models.TextField()
+	archivo = models.FileField()
 
 	class Meta:
 		ordering = ['-timestamp']

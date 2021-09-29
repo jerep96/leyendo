@@ -98,7 +98,7 @@ def eliminarProducto(request, urls):
 def editarUrl(request, title):
     url = None
     if title:
-        url = Url.objects.get(title=title)
+        url = Url.objects.filter(title=title).first()
         form = UrlForm(instance=url)
     if request.method == 'POST':
         form = UrlForm(request.POST, instance=url)
@@ -135,7 +135,7 @@ def ver (request, username):
 	portada = usuarios.values('portada')
 	urls = Url.objects.filter(user__username = user).values()
 	urls2 = urls.filter(modo__icontains = modoPerfil)
-	return HttpResponse(usuarios)
+	return HttpResponse(urls)
 
 def index (request):
 	return render(request, 'social/index.html')

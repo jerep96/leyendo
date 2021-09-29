@@ -39,7 +39,12 @@
 		<div class="col-md-8 offset-md-2 col-sm-12 d-grid gap-2">
 			{% for url in urls %}
 				{% for usuarios in usuario %}
-				<a href ="{{ url.content }}" type="button" target="_blank" class="btn block {{ usuarios.colorBoton }}">{{ url.title }}</a>
+				{% if not url.archivo %}
+					<a href ="{{ url.content }}" type="button" target="_blank" class="btn block {{ usuarios.colorBoton }}">{{ url.title }}</a>
+				{% endif %}
+				{% if url.archivo %}
+        	<a href ="../../../media/{{ url.archivo }}" type="button" target="_blank" class="btn block {{ usuarios.colorBoton }}">{{ url.title }}</a>
+        {% endif %}
 				{% endfor %}	
 			{% endfor %}
 		</div>	

@@ -42,11 +42,11 @@ class PostForm(forms.ModelForm):
 
 class UrlForm(forms.ModelForm):
 	title = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Red Social', 'class':'form-control'}), required=True)
-	content = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade la Url', 'class':'form-control'}), required=True)
+	content = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade la Url', 'class':'form-control'}), required=False)
 	modo = forms.ChoiceField(label='Seleccione un modo',widget=forms.Select(attrs={'rows':2, 'class':'form-select'}), choices=MODO)
 	class Meta:
 		model= Url
-		fields = ['title', 'content', 'modo']
+		fields = ['title', 'content', 'modo', 'archivo']
 
 class EditProfileForm(forms.ModelForm):
 	image = forms.ImageField(label='Seleccione una foto de perfil', widget=forms.FileInput(attrs={'rows':2, 'class':'form-control'}), required=False)
