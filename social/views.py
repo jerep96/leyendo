@@ -45,12 +45,14 @@ def post(request):
 def url(request):
 	current_user = get_object_or_404(User, pk=request.user.pk)
 	if request.method == 'POST':
-		form = UrlForm(request.POST)
+		file = request.FILES
+		form = UrlForm(request.POST, request.FILES)
 		if form.is_valid():
 			post = form.save(commit=False)
 			post.user = current_user
 			post.save()
 			messages.success(request, 'Su URL se cargo correctamente')
+			#return HttpResponse(file)
 			return redirect('feed')
 	else:
 		form = UrlForm()
