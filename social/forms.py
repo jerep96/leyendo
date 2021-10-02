@@ -44,7 +44,7 @@ class UrlForm(forms.ModelForm):
 	title = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Red Social', 'class':'form-control'}), required=True)
 	content = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade la Url', 'class':'form-control'}), required=False)
 	modo = forms.ChoiceField(label='Seleccione un modo',widget=forms.Select(attrs={'rows':2, 'class':'form-select'}), choices=MODO)
-	#archivo = forms.Field(label='Seleccione un archivo pdf', widget=forms.FileInput(attrs={'rows':2, 'class':'form-control'}), required=False)
+	archivo = forms.FileField(label='Seleccione un archivo pdf',required=False)
 
 	class Meta:
 		model= Url
