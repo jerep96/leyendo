@@ -34,7 +34,7 @@
 	<a class="btn" href="{% url 'editprofile' user %}">
 		<span class="material-icons" title="Cambiar foto">edit</span>
 	</a>
-	<h2>@{{ user.username }}</h2>	
+	<h2>{{ user.username }}</h2>	
 </div>
 
 <!-- Follow items -->
@@ -57,24 +57,26 @@
 		<div class="input-group input-group-sm mb-3">
 		  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  disabled="true" value="https://mi.leyendo.online/leyendo/{{ user.profile.user }}">
 		</div>
-		<h5>Compartir:</h5>
-			<div class="input-group input-group-sm mb-3">
+		<h5 class="mb-2">Comparti tu LE:</h5>
+		<div class="center">
+			<div class="input-group input-group-sm mb-3 col-12">
 						<div class="btn-group" role="group" aria-label="Basic outlined example">
 						  <a type="button" class="btn btn-outline-dark" href="https://api.whatsapp.com/send?text=https://mi.leyendo.online/leyendo/{{ user.profile.user }}" target="_blank"> 
 						  	<span class="material-icons">whatsapp</span>
 						  </a>
-						  <a type="button" class="btn btn-outline-dark" href="https://www.facebook.com/sharer/sharer.php?u=https://mi.leyendo.online/leyendo/{{ user.profile.user }}" target="_blank">
+						  <!--<a type="button" class="btn btn-outline-dark" href="https://www.facebook.com/sharer/sharer.php?u=https://mi.leyendo.online/leyendo/{{ user.profile.user }}" target="_blank">
 						  	<span class="material-icons">facebook</span>
-						  </a>
-						  <a type="button" class="btn btn-outline-dark" href="https://www.linkedin.com/sharing/share-offsite/?url=https://mi.leyendo.online/leyendo/{{ user.profile.user }}" target="_blank">
+						  </a>-->
+						  <!--<a type="button" class="btn btn-outline-dark" href="https://www.linkedin.com/sharing/share-offsite/?url=https://mi.leyendo.online/leyendo/{{ user.profile.user }}" target="_blank">
 						  	Linkedin
-						  </a>
+						  </a>-->
 						  <p id="copy_data" style="display: none;">mi.leyendo.online/leyendo/{{ user.profile.user }}</p>
 						  <button type="button" class="btn btn-outline-dark" onclick="copiarAlPortapapeles('copy_data')" id="copy_url">
 						  	<span class="material-icons">content_copy</span>
 						  </button>
 						</div>
 			</div>
+		</div>
 	</div>
 		<div class="d-grid gap-2">
 	<!--<button onclick="writeTag()" type="button" class="btn btn-dark bl" title="Grabar NFC">

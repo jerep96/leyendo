@@ -18,7 +18,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
   	{% if request.user.is_authenticated %}
-    <a class="navbar-brand me-auto" href="#">Hola @{{ request.user.username }}</a>
+    <a class="navbar-brand me-auto" href="#">Hola {{ request.user.username }}</a>
     {% else %}
     <a href="{% url 'index' %}"><img src="{% static 'logo_white.png' %}" id="img-logo"></a>
     {% endif %}
@@ -67,7 +67,7 @@
   	<div class="card-header">
 		<nav class="navbar">
 			{% if request.user.is_authenticated %}
-			<a class="feed" href="{% url 'feed' %}">Inicio</a>
+			<a class="feed" href="{% url 'feed' %}">Mis botones</a>
 			<a class="profile" href="{% url 'profile' request.user.username %}">Mi Perfil</a>
 			<a class="new" href="{% url 'post' %}"><span title="Agregar URl" class="material-icons">add</span></a>
 			{% endif %}
