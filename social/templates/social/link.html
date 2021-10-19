@@ -14,6 +14,31 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
+<script type="text/javascript">
+	function copiarAlPortapapeles(id_elemento) {
+
+	  // Crea un campo de texto "oculto"
+	  var aux = document.createElement("input");
+
+	  // Asigna el contenido del elemento especificado al valor del campo
+	  aux.setAttribute("value", document.getElementById(id_elemento).innerHTML);
+
+
+	  // Añade el campo a la página
+	  document.body.appendChild(aux);
+
+	  // Selecciona el contenido del campo
+	  aux.select();
+
+	  // Copia el texto seleccionado
+	  document.execCommand("copy");
+
+	  // Elimina el campo de la página
+	  document.body.removeChild(aux);
+
+	  alert("URL copiada")
+	}
+</script>
 {% for usuarios in usuario %}
 <body class="{{ usuarios.colorFondo }}">
 {% endfor %}
@@ -50,6 +75,8 @@
 		</div>	
 	</div>
 </div>
+<p id="copy_data" style="display: none;">mi.leyendo.online/leyendo/{{ user }}</p>
+<button class="btn-flotante" onclick="copiarAlPortapapeles('copy_data')" id="copy_url"><span class="material-icons">share</span></button>
   <br>
   <br>
   <br>

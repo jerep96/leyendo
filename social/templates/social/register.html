@@ -1,8 +1,39 @@
 {% extends 'social/layout.html' %}
 
 {% block content %}
+<script type="text/javascript">
+	function copiarAlPortapapeles(id_elemento) {
 
-<center><h4 class="p-2">{{ title }}</h4></center>
+	  // Crea un campo de texto "oculto"
+	  var aux = document.createElement("input");
+
+	  // Asigna el contenido del elemento especificado al valor del campo
+	  aux.setAttribute("value", document.getElementById(id_elemento).innerHTML);
+
+
+	  // Añade el campo a la página
+	  document.body.appendChild(aux);
+
+	  // Selecciona el contenido del campo
+	  aux.select();
+
+	  // Copia el texto seleccionado
+	  document.execCommand("copy");
+
+	  // Elimina el campo de la página
+	  document.body.removeChild(aux);
+
+	  alert("URL copiada")
+	}
+</script>
+
+{% if request.user.is_authenticated %}
+<div class="profile">
+	<img src="{{ user.profile.image.url }}">
+	<h2>{{ user.username }}</h2>	
+</div>
+
+{% endif %}
 
 <form class="form" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
@@ -12,5 +43,31 @@
 		<button type="submit"  class="btn btn-outline-dark">{{ boton }}</button>
 	</div>
 </form>
-
+{% if request.user.is_authenticated %}
+	<div class="container">
+		<h5 class="mb-2 ms-4">Comparti tu LE:</h5>
+		<div class="row">
+			<div class="col-8 offset-5">
+				<div class="btn-group" role="group" aria-label="Basic outlined example">
+					<a type="button" class="btn btn-outline-dark" href="https://api.whatsapp.com/send?text=https://mi.leyendo.online/leyendo/{{ user.profile.user }}" target="_blank"> 
+						<span class="material-icons">whatsapp</span>
+					</a>
+					<p id="copy_data" style="display: none;">mi.leyendo.online/leyendo/{{ user.profile.user }}</p>
+					<button type="button" class="btn btn-outline-dark" onclick="copiarAlPortapapeles('copy_data')" id="copy_url">
+						<span class="material-icons">content_copy</span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<h5 class=" ms-4">Baja la app</h5>
+		<div class="row">
+			<div class="col-8 offset-5">
+				<div class="btn-group" role="group">
+					<a href="#" type="button" class="btn btn-outline-dark"><span class="material-icons">android</span></a>
+					<a href="#" type="button" class="btn btn-outline-dark">IOS</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
 {% endblock %}

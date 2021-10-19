@@ -59,7 +59,7 @@ class EditProfileForm(forms.ModelForm):
 
 	class Meta:
 		model = Profile
-		fields = ['image', 'modo', 'colorBoton', 'colorFondo', 'portada']
+		fields = ['image','portada', 'modo', 'colorBoton', 'colorFondo']
 
 class ModoProfileForm(forms.ModelForm):
 	
