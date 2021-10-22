@@ -1,30 +1,55 @@
 {% extends 'social/layout.html' %}
 {% load humanize %}
 {% block content %}
-
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+      $( ".container" ).sortable({
+      connectWith: ".container",
+      handle: ".portlet-header",
+      cancel: ".portlet-toggle",
+      start: function (event, ui) {
+        ui.item.addClass('tilt');
+      },
+      stop: function (event, ui) {
+        ui.item.removeClass('tilt');
+      }
+    });
+ 
+    $( ".portlet" )
+      .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+      .find( ".portlet-header" )
+        .addClass( "ui-widget-header ui-corner-all" )
+        .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+ 
+    $( ".portlet-toggle" ).click(function() {
+      var icon = $( this );
+      icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
+      icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
+    });
+</script>
     {% if request.user.is_authenticated %}
         {% for url in urls %}
         <div class="container">
-            <div class="list-group p-2">
-                <div class="list-group-item list-group-item-action">
-                <!--<a href="#" class="list-group-item list-group-item-action" aria-current="true">-->
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ url.title }} - {{url.modo|title}}</h5>
-                        <small>{{ url.timestamp|naturaltime }}</small>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                          <a href="{% url 'editar' title=url.title %}">
-                            <span class="material-icons">create</span>
-                          </a>
-                          <a href="{% url 'eliminar' urls=url.title %}">
-                            <span class="material-icons">delete</span>
-                          </a>
-                        </div>
+          <div class="portlet">
+            <div class="list-group  p-2">
+              <div class="list-group-item portlet-content list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1 portlet-header">{{ url.title }} - {{url.modo|title}}</h5>
+                  <small>{{ url.timestamp|naturaltime }}</small>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                      <a href="{% url 'editar' title=url.title %}">
+                        <span class="material-icons">create</span>
+                      </a>
+                      <a href="{% url 'eliminar' urls=url.title %}">
+                        <span class="material-icons">delete</span>
+                      </a>
                     </div>
-                    <p class="mb-1">{{ url.content }}</p>
-                    <!--<small>And some small print.</small>-->
-                <!--</a>-->
                 </div>
+                <p class="mb-1">{{ url.content }}</p>
+              </div>
             </div>
+          </div>
         </div>
 
         {% endfor %}

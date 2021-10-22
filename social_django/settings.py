@@ -109,9 +109,13 @@ ALLOWED_HOSTS = ['45.90.109.107', 'localhost', '127.0.0.1', 'mi.leyendo.online']
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-AR'
 
-TIME_ZONE = 'UTC'
+LANGUAGE = [
+    ('es',('Español'))
+]
+
+TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
 USE_I18N = True
 
