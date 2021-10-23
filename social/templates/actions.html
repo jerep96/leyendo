@@ -1,0 +1,20 @@
+{% extends 'social/layout.html' %}
+{% load humanize %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6 d-grid gap-2 mt-3 black-text">
+                <a class="btn btn-secondary"><span class="material-icons">link</span><br>URL</a>
+                <a class="btn btn-secondary"><span class="material-icons">article</span><br>Texto</a>
+                <a class="btn btn-secondary"><span class="material-icons">phone</span><br>Telefono</a>
+                <a class="btn btn-secondary"><span class="material-icons">location_on</span><br>Ubicacion</a>
+            </div>
+            <div class="col-6 d-grid gap-2 mt-3">
+                <a class="btn btn-secondary"><span class="material-icons">contact_page</span><br>Contacto</a>
+                <a class="btn btn-secondary"><span class="material-icons">description</span><br>Archivo</a>
+                <a class="btn btn-secondary"><span class="material-icons">email</span><br>Email</a>
+                <a class="btn btn-secondary"><span class="material-icons">account_balance_wallet</span><br>Criptomonedas</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

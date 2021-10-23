@@ -72,7 +72,7 @@
 			<a class="feed" href="{% url 'feed' %}">Mis botones</a>
 			<a class="profile" href="https://mi.leyendo.online/leyendo/{{request.user.username}}">Vista Previa</a>
 			<a class="profile" href="{% url 'editprofile' request.user.username %}">Mi Perfil</a>
-			<a class="new" href="{% url 'post' %}"><span title="Agregar URl" class="material-icons">add</span></a>
+			<a class="new" href="{% url 'action' %}"><span title="Agregar URl" class="material-icons">add</span></a>
 			{% endif %}
 		</nav>
 	</div>

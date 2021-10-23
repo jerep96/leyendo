@@ -81,7 +81,7 @@ def editprofile(request, username):
 		if form.is_valid():
 			form.save()
 			#return HttpResponse(form)
-			return redirect('profile')
+			return redirect('feed')
 	return render(request, 'social/register.html', {'form':form, 'title': 'Editar Usuario', 'boton': 'Guardar'})
 
 
@@ -142,7 +142,8 @@ def ver (request, username):
 def index (request):
 	return render(request, 'social/index.html')
 
-
+def actions (request):
+	return render(request, 'actions.html')
 
 
 

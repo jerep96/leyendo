@@ -18,6 +18,7 @@ urlpatterns = [
 	path('leyendo/<str:username>/', views.link, name='link'),
 	path('ver/<str:username>/', views.ver, name='ver'),
 	path('editprofile/<str:username>/', views.editprofile, name='editprofile'),
+	path('action', views.actions, name='action')
 	
 	
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
