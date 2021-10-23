@@ -3,36 +3,38 @@
 {% block content %}
 <script>
   $(document).ready(function () {
-    var el = document.getElementById('list')  
-    var sortable = Sortable.create(el,{})
+      let el = document.getElementById('list');
+      let sortable = Sortable.create(el, {});
   })
 
 
 </script>
     {% if request.user.is_authenticated %}
-        {% for url in urls %}
+
         <div class="container">
           <div class="portlet">
             <div id="list" class="list-group  p-2">
-              <div class="list-group-item portlet-content list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">{{ url.title }} - {{url.modo|title}}</h5>
-                  <small>{{ url.timestamp|naturaltime }}</small>
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                      <a href="{% url 'editar' title=url.title %}">
-                        <span class="material-icons">create</span>
-                      </a>
-                      <a href="{% url 'eliminar' urls=url.title %}">
-                        <span class="material-icons">delete</span>
-                      </a>
+              {% for url in urls %}
+                <div class="list-group-item portlet-content list-group-item-action">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ url.title }} - {{url.modo|title}}</h5>
+                    <small>{{ url.timestamp|naturaltime }}</small>
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                        <a href="{% url 'editar' title=url.title %}">
+                          <span class="material-icons">create</span>
+                        </a>
+                        <a href="{% url 'eliminar' urls=url.title %}">
+                          <span class="material-icons">delete</span>
+                        </a>
+                      </div>
                     </div>
+                  <p class="mb-1">{{ url.content }}</p>
                 </div>
-                <p class="mb-1">{{ url.content }}</p>
-              </div>
+              {% endfor %}
             </div>
           </div>
         </div>
 
-        {% endfor %}
+
     {% endif %}
 {% endblock %}
