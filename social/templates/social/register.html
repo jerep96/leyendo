@@ -26,15 +26,79 @@
 	  alert("URL copiada")
 	}
 </script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        if ($('#id_modo').value === 'Business') {
+            $("#id_imageB").show();
+            $("#id_portadaB").show();
+            $("#id_imageS").hide();
+            $("#id_portadaS").hide();
+            $("#id_imageO").hide();
+            $("#id_portadaO").hide();
+        } else if ($('#id_modo').value === 'Social') {
+            $("#id_imageB").hide();
+            $("#id_portadaB").hide();
+            $("#id_imageS").show();
+            $("#id_portadaS").show();
+            $("#id_imageO").hide();
+            $("#id_portadaO").hide();
+        } else {
+            $("#id_imageB").hide();
+            $("#id_portadaB").hide();
+            $("#id_imageS").hide();
+            $("#id_portadaS").hide();
+            $("#id_imageO").show();
+            $("#id_portadaO").show();
+        }
+        $('#id_modo').on('change',function(){
+            console.log('entro')
+            if (this.value === 'Business') {
+                $("#id_imageB").show();
+                $("#id_portadaB").show();
+                $("#id_imageS").hide();
+                $("#id_portadaS").hide();
+                $("#id_imageO").hide();
+                $("#id_portadaO").hide();
+            } else if (this.value === 'Social') {
+                $("#id_imageB").hide();
+                $("#id_portadaB").hide();
+                $("#id_imageS").show();
+                $("#id_portadaS").show();
+                $("#id_imageO").hide();
+                $("#id_portadaO").hide();
+            } else {
+                $("#id_imageB").hide();
+                $("#id_portadaB").hide();
+                $("#id_imageS").hide();
+                $("#id_portadaS").hide();
+                $("#id_imageO").show();
+                $("#id_portadaO").show();
+            }
+        })
+    });
+</script>
 {% if request.user.is_authenticated %}
 <div class="row">
 	<div class="col-12">
-		<img src="../../../media/{{ user.profile.portada}}" class="img-fluid img-responsive" style="height: 200px; width: inherit;">
+        {% if user.profile.modo == 'Business' %}
+		    <img src="../../../media/{{ user.profile.portadaB}}" class="img-fluid img-responsive" style="height: 200px; width: inherit;">
+        {% elif user.profile.modo == 'Social' %}
+            <img src="../../../media/{{ user.profile.portadaS}}" class="img-fluid img-responsive" style="height: 200px; width: inherit;">
+        {% else %}
+            <img src="../../../media/{{ user.profile.portadaO}}" class="img-fluid img-responsive" style="height: 200px; width: inherit;">
+        {% endif %}
 	</div>
 </div>
 <div class="profile">
-	<img class="circle2" src="{{ user.profile.image.url }}">
+    {% if user.profile.modo == 'Business' %}
+	    <img class="circle2" src="{{ user.profile.imageB.url }}">
+    {% elif user.profile.modo == 'Social' %}
+        <img class="circle2" src="{{ user.profile.imageS.url }}">
+    {% else %}
+        <img class="circle2" src="{{ user.profile.imageO.url }}">
+    {% endif %}
+
 	<h2>{{ user.username }}</h2>	
 </div>
 
@@ -42,7 +106,7 @@
 
 <form class="form" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
-	{{ form.as_p }}
+	{{ form }}
 
 	<div class="d-grid gap-2">
 		<button type="submit"  class="btn btn-outline-dark">{{ boton }}</button>

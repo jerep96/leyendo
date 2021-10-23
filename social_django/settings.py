@@ -112,7 +112,7 @@ ALLOWED_HOSTS = ['45.90.109.107', 'localhost', '127.0.0.1', 'mi.leyendo.online']
 LANGUAGE_CODE = 'es-AR'
 
 LANGUAGE = [
-    ('es',('Español'))
+    ('es-ar', 'Argentinian Spanish')
 ]
 
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
@@ -128,8 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = "/var/www/leyendo/static/"
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
