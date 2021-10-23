@@ -43,12 +43,79 @@ class PostForm(forms.ModelForm):
 class UrlForm(forms.ModelForm):
 	title = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade el nombre del boton', 'class':'form-control'}), required=True)
 	content = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade una Url (Instagram,facebook,etc.)', 'class':'form-control'}), required=False)
-	archivo = forms.FileField(label='o añade un archivo pdf',required=False)
 	modo = forms.ChoiceField(label='Seleccione un modo',widget=forms.Select(attrs={'rows':2, 'class':'form-select'}), choices=MODO)
 
 	class Meta:
 		model= Url
-		fields = ['title', 'content','archivo','modo']
+		fields = ['title', 'content','modo']
+
+class TextForm(forms.ModelForm):
+	title = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade el nombre del boton', 'class':'form-control'}), required=True)
+	content = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade una Texto', 'class':'form-control'}), required=False)
+	modo = forms.ChoiceField(label='Seleccione un modo',widget=forms.Select(attrs={'rows':2, 'class':'form-select'}), choices=MODO)
+	
+	class Meta:
+		model= Url
+		fields = ['title', 'content', 'modo']
+
+
+class PhoneForm(forms.ModelForm):
+	title = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade el nombre del boton', 'class':'form-control'}), required=True)
+	phone = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade un Telefono', 'class':'form-control'}), required=False)
+	modo = forms.ChoiceField(label='Seleccione un modo',widget=forms.Select(attrs={'rows':2, 'class':'form-select'}), choices=MODO)
+	
+	class Meta:
+		model= Url
+		fields = ['title', 'phone', 'modo']
+
+class LocationForm(forms.ModelForm):
+	title = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade el nombre del boton', 'class':'form-control'}), required=True)
+	location = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade la Url de su ubicacion', 'class':'form-control'}), required=False)
+	modo = forms.ChoiceField(label='Seleccione un modo',widget=forms.Select(attrs={'rows':2, 'class':'form-select'}), choices=MODO)
+	
+	class Meta:
+		model= Url
+		fields = ['title', 'location', 'modo']
+
+class FileForm(forms.ModelForm):
+	title = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade el nombre del boton', 'class':'form-control'}), required=True)
+	archivo = forms.FileField(label='Añade un Archivo', required=False)
+	modo = forms.ChoiceField(label='Seleccione un modo',widget=forms.Select(attrs={'rows':2, 'class':'form-select'}), choices=MODO)
+	
+	class Meta:
+		model= Url
+		fields = ['title', 'archivo', 'modo']
+
+class MailForm(forms.ModelForm):
+	title = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade el nombre del boton', 'class':'form-control'}), required=True)
+	mail = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade una direccion de Mail', 'class':'form-control'}), required=False)
+	modo = forms.ChoiceField(label='Seleccione un modo',widget=forms.Select(attrs={'rows':2, 'class':'form-select'}), choices=MODO)
+	
+	class Meta:
+		model= Url
+		fields = ['title', 'mail', 'modo']
+
+class WalletForm(forms.ModelForm):
+	title = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade el nombre del boton', 'class':'form-control'}), required=True)
+	content = forms.CharField(label='', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Añade una direccion de Wallet', 'class':'form-control'}), required=False)
+	modo = forms.ChoiceField(label='Seleccione un modo',widget=forms.Select(attrs={'rows':2, 'class':'form-select'}), choices=MODO)
+	
+	class Meta:
+		model= Url
+		fields = ['title', 'content', 'modo']
+
+class ContactForm(forms.ModelForm):
+	title = forms.CharField(label='Nombre del contacto:', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Nombre del contacto', 'class':'form-control'}), required=True)
+	company = forms.CharField(label='Compañia:', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Compañia', 'class':'form-control'}), required=True)
+	location = forms.CharField(label='Direccion:', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Direccion', 'class':'form-control'}), required=False)
+	phone = forms.CharField(label='Telefono:', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Telefono', 'class':'form-control'}), required=False)
+	mail = forms.CharField(label='Mail:', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Mail', 'class':'form-control'}), required=False)
+	website = forms.CharField(label='Sitio Web:', widget=forms.TextInput(attrs={'rows':2, 'placeholder': 'Sitio Web', 'class':'form-control'}), required=False)
+	modo = forms.ChoiceField(label='Seleccione un modo:',widget=forms.Select(attrs={'rows':2, 'class':'form-select'}), choices=MODO)
+	
+	class Meta:
+		model= Url
+		fields = ['title', 'company', 'location','phone','mail','website', 'modo']
 
 class EditProfileForm(forms.ModelForm):
 	image = forms.ImageField(label='Seleccione una foto de perfil', widget=forms.FileInput(attrs={'rows':2, 'class':'form-control'}), required=False)
