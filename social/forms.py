@@ -124,13 +124,13 @@ class ContactForm(forms.ModelForm):
 
 class EditProfileForm(forms.ModelForm):
     imageB = forms.ImageField(label='Seleccione una foto de perfil',
-                             widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
+                              widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
     imageS = forms.ImageField(label='',
-                             widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
+                              widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
     imageO = forms.ImageField(label='',
                               widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
     portadaB = forms.ImageField(label='Seleccione una foto de portada',
-                               widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
+                                widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
     portadaS = forms.ImageField(label='',
                                 widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
     portadaO = forms.ImageField(label='',
