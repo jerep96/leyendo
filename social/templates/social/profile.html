@@ -30,7 +30,13 @@
 </script>
 <!-- Profile -->
 <div class="profile">
-	<img src="{{ user.profile.image.url }}">
+    {% if user.profile.modo == 'Business' %}
+	    <img src="{{ user.profile.imageB.url }}">
+    {% elif user.profile.modo == 'Social' %}
+        <img src="{{ user.profile.imageS.url }}">
+    {% else %}
+        <img src="{{ user.profile.imageO.url }}">
+    {%  endif %}
 	<a class="btn" href="{% url 'editprofile' user %}">
 		<span class="material-icons" title="Cambiar foto">edit</span>
 	</a>
