@@ -54,7 +54,7 @@
             $("#id_portadaO").show();
         }
         $('#id_modo').on('change',function(){
-            console.log('entro')
+            let form = document.getElementById("form");
             if (this.value === 'Business') {
                 $("#id_imageB").show();
                 $("#id_portadaB").show();
@@ -62,6 +62,7 @@
                 $("#id_portadaS").hide();
                 $("#id_imageO").hide();
                 $("#id_portadaO").hide();
+                form.submit();
             } else if (this.value === 'Social') {
                 $("#id_imageB").hide();
                 $("#id_portadaB").hide();
@@ -69,6 +70,7 @@
                 $("#id_portadaS").show();
                 $("#id_imageO").hide();
                 $("#id_portadaO").hide();
+                form.submit();
             } else {
                 $("#id_imageB").hide();
                 $("#id_portadaB").hide();
@@ -76,6 +78,7 @@
                 $("#id_portadaS").hide();
                 $("#id_imageO").show();
                 $("#id_portadaO").show();
+                form.submit();
             }
         })
     });
@@ -106,7 +109,7 @@
 
 {% endif %}
 
-<form class="form" method="post" enctype="multipart/form-data">
+<form class="form" method="post" enctype="multipart/form-data" id="form">
 	{% csrf_token %}
 	{{ form }}
 	<div class="d-grid gap-2">

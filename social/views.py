@@ -86,7 +86,7 @@ def editprofile(request, username):
         form = EditProfileForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
-            return redirect('feed')
+            # return redirect('feed')
     return render(request, 'social/register.html', {'form': form, 'title': 'Editar Usuario', 'boton': 'Guardar'})
 
 
