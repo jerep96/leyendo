@@ -73,9 +73,9 @@
                 {% if usuarios.modo == 'Business' %}
 			        <center><h4>{{ usuarios.nombreB }}</h4></center>
                 {% elif usuarios.modo == 'Social' %}
-			        <center><h4>{{ user }}</h4></center>
+			        <center><h4>{{ usuarios.nombreS }}</h4></center>
                 {% else %}
-			        <center><h4>{{ user }}</h4></center>
+			        <center><h4>{{ usuarios.nombreO }}</h4></center>
                 {% endif %}
 			{% endfor %}
 		</div>
