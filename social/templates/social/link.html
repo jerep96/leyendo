@@ -45,20 +45,38 @@
 <div class="row">
 			<div class="col-12">
 			{% for usuarios in usuario %}
-				<img src="../../../media/{{ usuarios.portada }}" class="img-fluid img-responsive" style="height: 200px; width: inherit;">
-			{% endfor %}
+                {% if usuarios.modo == 'Business' %}
+				    <img src="../../../media/{{ usuarios.portadaB }}" class="img-fluid img-responsive" style="height: 200px; width: inherit;">
+				{% elif usuarios.modo == 'Social' %}
+                    <img src="../../../media/{{ usuarios.portadaS }}" class="img-fluid img-responsive" style="height: 200px; width: inherit;">
+				{% else %}
+                    <img src="../../../media/{{ usuarios.portadaO }}" class="img-fluid img-responsive" style="height: 200px; width: inherit;">
+			    {% endif %}
+            {% endfor %}
 		</div>
 </div>
 <div class="container">
 	<div class="row align-items-center">
 		<div class="col">
 			{% for usuarios in usuario %}
-			<center><img src="../../../media/{{ usuarios.image }}" class="circle" alt="..."></center>
-			{% endfor %}
+                {% if usuarios.modo == 'Business' %}
+			        <center><img src="../../../media/{{ usuarios.imageB }}" class="circle" alt="..."></center>
+			    {% elif usuarios.modo == 'Social' %}
+                    <center><img src="../../../media/{{ usuarios.imageS }}" class="circle" alt="..."></center>
+			    {% else %}
+                    <center><img src="../../../media/{{ usuarios.imageO }}" class="circle" alt="..."></center>
+			    {% endif %}
+            {% endfor %}
 		</div>
 		<div class="col-12" >
 			{% for usuarios in usuario %}
-			<center><h4>{{ user }}</h4></center>
+                {% if usuarios.modo == 'Business' %}
+			        <center><h4>{{ usuarios.nombreB }}</h4></center>
+                {% elif usuarios.modo == 'Social' %}
+			        <center><h4>{{ user }}</h4></center>
+                {% else %}
+			        <center><h4>{{ user }}</h4></center>
+                {% endif %}
 			{% endfor %}
 		</div>
 		<div class="col-md-8 offset-md-2 col-sm-12 d-grid gap-2">
@@ -112,7 +130,7 @@
   <!-- Copyright -->
   <div class="text-center {{ usuarios.colorFondo }}">
     © 2021 Copyright:
-    <a href="https://leyendo.online/" class="text-white">Leyendo/a>
+    <a href="https://leyendo.online/" class="text-white">Leyendo</a>
   </div>
   <!-- Copyright -->
   {% endfor %}

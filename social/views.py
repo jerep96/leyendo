@@ -128,7 +128,9 @@ def link(request, username):
     modoPerfil = usuarios.values('modo')
     colorboton = usuarios.values('colorBoton')
     colorfondo = usuarios.values('colorFondo')
-    portada = usuarios.values('portada')
+    portadaB = usuarios.values('portadaB')
+    portadaS = usuarios.values('portadaS')
+    portadaO = usuarios.values('portadaO')
 
     if colorfondo == 'Negro' or 'negro':
         urlimg = 'logo_white.png'
@@ -139,7 +141,7 @@ def link(request, username):
     urls2 = urls.filter(modo__icontains=modoPerfil)
     # return HttpResponse(urls)
     context = {'urls': urls2, 'usuario': usuarios, 'user': user, 'colorboton': colorboton, 'colorfondo': colorfondo,
-               'urlimg': urlimg, 'portada': portada}
+               'urlimg': urlimg, 'portadaB': portadaB, 'portadaS': portadaS, 'portadaO': portadaO}
     return render(request, 'social/link.html', context)
 
 
