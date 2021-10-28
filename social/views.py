@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import *
-from .forms import UserRegisterForm, PostForm, UrlForm, EditProfileForm, ModoProfileForm
+from .forms import UserRegisterForm, PostForm, UrlForm, EditProfileForm, ModoProfileForm, EditNameForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -82,12 +82,18 @@ def profile(request, username=None, ):
 def editprofile(request, username):
     user = Profile.objects.get(user__username=username)
     form = EditProfileForm(instance=user)
+    formName = EditNameForm(instance=user)
     if request.method == 'POST':
         form = EditProfileForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             # return redirect('feed')
-    return render(request, 'social/register.html', {'form': form, 'title': 'Editar Usuario', 'boton': 'Guardar'})
+    if request.method == 'GET':
+        formName = EditNameForm(request.GET, instance=user)
+        if formName.is_valid():
+            # return HttpResponse(formName)
+            formName.save()
+    return render(request, 'social/register.html', {'form': form, 'formName': formName, 'title': 'Editar Usuario', 'boton': 'Guardar'})
 
 
 @login_required

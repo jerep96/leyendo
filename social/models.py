@@ -24,6 +24,9 @@ COLOR = (
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nombreB = models.CharField(default='Sin nombre', max_length=50)
+    nombreS = models.CharField(default='Sin nombre', max_length=50)
+    nombreO = models.CharField(default='Sin nombre', max_length=50)
     imageB = models.ImageField(upload_to='photos', default='batman.png')
     imageS = models.ImageField(upload_to='photos', default='batman.png')
     imageO = models.ImageField(upload_to='photos', default='batman.png')
