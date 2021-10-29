@@ -1,110 +1,46 @@
 {% extends 'social/layout.html' %}
-
+{% load static%}
 {% block content %}
-<script type="text/javascript">
-	function copiarAlPortapapeles(id_elemento) {
-
-	  // Crea un campo de texto "oculto"
-	  var aux = document.createElement("input");
-
-	  // Asigna el contenido del elemento especificado al valor del campo
-	  aux.setAttribute("value", document.getElementById(id_elemento).innerHTML);
-
-
-	  // Añade el campo a la página
-	  document.body.appendChild(aux);
-
-	  // Selecciona el contenido del campo
-	  aux.select();
-
-	  // Copia el texto seleccionado
-	  document.execCommand("copy");
-
-	  // Elimina el campo de la página
-	  document.body.removeChild(aux);
-
-	  alert("URL copiada")
-	}
-</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function(){
-        let select = document.getElementById("id_modo");
-        let selectedOption = select.options[select.selectedIndex];
-        if (selectedOption.value === 'Business') {
-            $("#id_imageB").show();
-            $("#id_portadaB").show();
-            $("#id_imageS").hide();
-            $("#id_portadaS").hide();
-            $("#id_imageO").hide();
-            $("#id_portadaO").hide();
-        } else if (selectedOption.value === 'Social') {
-            $("#id_imageB").hide();
-            $("#id_portadaB").hide();
-            $("#id_imageS").show();
-            $("#id_portadaS").show();
-            $("#id_imageO").hide();
-            $("#id_portadaO").hide();
-        } else {
-            $("#id_imageB").hide();
-            $("#id_portadaB").hide();
-            $("#id_imageS").hide();
-            $("#id_portadaS").hide();
-            $("#id_imageO").show();
-            $("#id_portadaO").show();
-        }
-        $('#id_modo').on('change',function(){
-            let form = document.getElementById("form");
-            if (this.value === 'Business') {
-                $("#id_imageB").show();
-                $("#id_portadaB").show();
-                $("#id_imageS").hide();
-                $("#id_portadaS").hide();
-                $("#id_imageO").hide();
-                $("#id_portadaO").hide();
-                form.submit();
-            } else if (this.value === 'Social') {
-                $("#id_imageB").hide();
-                $("#id_portadaB").hide();
-                $("#id_imageS").show();
-                $("#id_portadaS").show();
-                $("#id_imageO").hide();
-                $("#id_portadaO").hide();
-                form.submit();
-            } else {
-                $("#id_imageB").hide();
-                $("#id_portadaB").hide();
-                $("#id_imageS").hide();
-                $("#id_portadaS").hide();
-                $("#id_imageO").show();
-                $("#id_portadaO").show();
-                form.submit();
-            }
-        })
-    });
-</script>
+<script type="text/javascript" src="{% static 'functions.js' %}"></script>
+
 {% if request.user.is_authenticated %}
 <div class="row">
 	<div class="col-12">
         {% if user.profile.modo == 'Business' %}
-		    <img src="{{ user.profile.portadaB.url}}" class="img-fluid img-responsive" style="height: 200px; width: inherit;">
+		    <img src="{{ user.profile.portadaB.url}}" class="img-fluid img-responsive" style="height: 200px; width: inherit;" alt="">
         {% elif user.profile.modo == 'Social' %}
-            <img src="{{ user.profile.portadaS.url}}" class="img-fluid img-responsive" style="height: 200px; width: inherit;">
+            <img src="{{ user.profile.portadaS.url}}" class="img-fluid img-responsive" style="height: 200px; width: inherit;" alt="">
         {% else %}
-            <img src="{{ user.profile.portadaO.url}}" class="img-fluid img-responsive" style="height: 200px; width: inherit;">
+            <img src="{{ user.profile.portadaO.url}}" class="img-fluid img-responsive" style="height: 200px; width: inherit;" alt="">
         {% endif %}
 	</div>
 </div>
 <div class="profile">
-    {% if user.profile.modo == 'Business' %}
-	    <img class="circle2" src="{{ user.profile.imageB.url }}">
-    {% elif user.profile.modo == 'Social' %}
-        <img class="circle2" src="{{ user.profile.imageS.url }}">
-    {% else %}
-        <img class="circle2" src="{{ user.profile.imageO.url }}">
-    {% endif %}
-
-	<h2>{{ user.username }}</h2>	
+    <img id="id_nombreB" class="circle2" src="{{ user.profile.imageB.url }}" alt="">
+    <h2 id="nombreB" ondblclick="changeNameB()">{{ user.profile.nombreB }}</h2>
+    <img id="id_nombreS" class="circle2" src="{{ user.profile.imageS.url }}" alt="">
+    <h2 id="nombreS" ondblclick="changeNameS()">{{ user.profile.nombreS }}</h2>
+    <img id="id_nombreO" class="circle2" src="{{ user.profile.imageO.url }}" alt="">
+    <h2 id="nombreO" ondblclick="changeNameO()">{{ user.profile.nombreO }}</h2>
+    <form class="form" method="get" enctype="multipart/form-data" id="formNameB">
+        {% csrf_token %}
+        <h2>{{ formName.nombreB }} <span class="material-icons btn" onclick="saveB();">save</span><span class="material-icons btn" onclick="history.back();">cancel</span></h2>
+        <h2 hidden>{{ formName.nombreS }}</h2>
+        <h2 hidden>{{ formName.nombreO }}</h2>
+    </form>
+    <form class="form" method="get" enctype="multipart/form-data" id="formNameS">
+        {% csrf_token %}
+        <h2 hidden>{{ formName.nombreB }}</h2>
+        <h2>{{ formName.nombreS }} <span class="material-icons btn" onclick="saveS();">save</span><span class="material-icons btn" onclick="history.back();">cancel</span></h2>
+        <h2 hidden>{{ formName.nombreO }}</h2>
+    </form>
+    <form class="form" method="get" enctype="multipart/form-data" id="formNameO">
+        {% csrf_token %}
+        <h2 hidden>{{ formName.nombreB }}</h2>
+        <h2 hidden>{{ formName.nombreS }}</h2>
+        <h2>{{ formName.nombreO }} <span class="material-icons btn" onclick="saveO();">save</span><span class="material-icons btn" onclick="history.back();">cancel</span></h2>
+    </form>
 </div>
 
 {% endif %}

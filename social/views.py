@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import *
-# from .forms import UserRegisterForm, PostForm, UrlForm, EditProfileForm, ModoProfileForm, TextForm, PhoneForm,LocationForm
-from .forms import *
+from .forms import UserRegisterForm, PostForm, UrlForm, EditProfileForm, ModoProfileForm, EditNameForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -34,133 +33,34 @@ def register(request):
 def post(request):
     current_user = get_object_or_404(User, pk=request.user.pk)
     if request.method == 'POST':
-        if request.type == 'url':
-            form = PostForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.user = current_user
-                post.save()
-                messages.success(request, 'Post enviado')
-                return redirect('feed')
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = current_user
+            post.save()
+            messages.success(request, 'Post enviado')
+            return redirect('feed')
     else:
         form = PostForm()
     return render(request, 'social/post.html', {'form': form})
 
 
 @login_required
-def url(request, type):
+def url(request):
     current_user = get_object_or_404(User, pk=request.user.pk)
-    if type == 'url':
-        if request.method == 'POST':
-            file = request.FILES
-            form = UrlForm(request.POST, request.FILES)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.user = current_user
-                post.save()
-                messages.success(request, 'Su URL se cargo correctamente')
-                # return HttpResponse(request)
-                return redirect('feed')
-        else:
-            form = UrlForm()
-        return render(request, 'social/post.html', {'form': form})
-    # si es texto
-    elif type == 'text':
-        if request.method == 'POST':
-            form = TextForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.user = current_user
-                post.save()
-                messages.success(request, 'Su Texto se cargo correctamente')
-                # return HttpResponse(request)
-                return redirect('feed')
-        else:
-            form = TextForm()
-        return render(request, 'social/post.html', {'form': form})
-    # Si es Phone
-    elif type == 'phone':
-        if request.method == 'POST':
-            form = PhoneForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.user = current_user
-                post.save()
-                messages.success(request, 'Su Telefono se cargo correctamente')
-                # return HttpResponse(request)
-                return redirect('feed')
-        else:
-            form = PhoneForm()
-        return render(request, 'social/post.html', {'form': form})
-    # si es Ubicacion
-    elif type == 'location':
-        if request.method == 'POST':
-            form = LocationForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.user = current_user
-                post.save()
-                messages.success(request, 'Su Ubicacion se cargo correctamente')
-                # return HttpResponse(request)
-                return redirect('feed')
-        else:
-            form = LocationForm()
-        return render(request, 'social/post.html', {'form': form})
-    # si es archivo
-    elif type == 'file':
-        if request.method == 'POST':
-            form = FileForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.user = current_user
-                post.save()
-                messages.success(request, 'Su Archivo se cargo correctamente')
-                # return HttpResponse(request)
-                return redirect('feed')
-        else:
-            form = FileForm()
-        return render(request, 'social/post.html', {'form': form})
-    # Si es Email
-    elif type == 'email':
-        if request.method == 'POST':
-            form = MailForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.user = current_user
-                post.save()
-                messages.success(request, 'Su Mail se cargo correctamente')
-                # return HttpResponse(request)
-                return redirect('feed')
-        else:
-            form = MailForm()
-        return render(request, 'social/post.html', {'form': form})
-    # si es Wallet
-    elif type == 'wallet':
-        if request.method == 'POST':
-            form = WalletForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.user = current_user
-                post.save()
-                messages.success(request, 'Su Mail se cargo correctamente')
-                # return HttpResponse(request)
-                return redirect('feed')
-        else:
-            form = WalletForm()
-        return render(request, 'social/post.html', {'form': form})
+    if request.method == 'POST':
+        file = request.FILES
+        form = UrlForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = current_user
+            post.save()
+            messages.success(request, 'Su URL se cargo correctamente')
+            # return HttpResponse(file)
+            return redirect('feed')
     else:
-        if request.method == 'POST':
-            form = ContactForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.user = current_user
-                post.save()
-                messages.success(request, 'Su Mail se cargo correctamente')
-                # return HttpResponse(request)
-                return redirect('feed')
-        else:
-            form = ContactForm()
-        return render(request, 'social/post.html', {'form': form})
+        form = UrlForm()
+    return render(request, 'social/post.html', {'form': form})
 
 
 @login_required
@@ -182,12 +82,18 @@ def profile(request, username=None, ):
 def editprofile(request, username):
     user = Profile.objects.get(user__username=username)
     form = EditProfileForm(instance=user)
+    formName = EditNameForm(instance=user)
     if request.method == 'POST':
         form = EditProfileForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             # return redirect('feed')
-    return render(request, 'social/register.html', {'form': form, 'title': 'Editar Usuario', 'boton': 'Guardar'})
+    if request.method == 'GET':
+        formName = EditNameForm(request.GET, instance=user)
+        if formName.is_valid():
+            # return HttpResponse(formName)
+            formName.save()
+    return render(request, 'social/register.html', {'form': form, 'formName': formName, 'title': 'Editar Usuario', 'boton': 'Guardar'})
 
 
 @login_required
@@ -222,7 +128,9 @@ def link(request, username):
     modoPerfil = usuarios.values('modo')
     colorboton = usuarios.values('colorBoton')
     colorfondo = usuarios.values('colorFondo')
-    portada = usuarios.values('portada')
+    portadaB = usuarios.values('portadaB')
+    portadaS = usuarios.values('portadaS')
+    portadaO = usuarios.values('portadaO')
 
     if colorfondo == 'Negro' or 'negro':
         urlimg = 'logo_white.png'
@@ -233,7 +141,7 @@ def link(request, username):
     urls2 = urls.filter(modo__icontains=modoPerfil)
     # return HttpResponse(urls)
     context = {'urls': urls2, 'usuario': usuarios, 'user': user, 'colorboton': colorboton, 'colorfondo': colorfondo,
-               'urlimg': urlimg, 'portada': portada}
+               'urlimg': urlimg, 'portadaB': portadaB, 'portadaS': portadaS, 'portadaO': portadaO}
     return render(request, 'social/link.html', context)
 
 

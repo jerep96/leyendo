@@ -153,3 +153,14 @@ class ModoProfileForm(forms.ModelForm):
         # fields = ['modo']
         fields = '__all__'
     # hidden = ['user', 'image', 'colorBoton', 'colorFondo']
+
+
+class EditNameForm(forms.ModelForm):
+
+    nombreB = forms.CharField(label='', required=False)
+    nombreS = forms.CharField(label='', required=False)
+    nombreO = forms.CharField(label='', required=False)
+
+    class Meta:
+        model = Profile
+        fields = ['nombreB', 'nombreS', 'nombreO']
