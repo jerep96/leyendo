@@ -2,10 +2,11 @@
 {% load humanize %}
 {% block content %}
 <script>
+  $(document).ready(function () {
+    var el = document.getElementById('list')  
+    var sortable = Sortable.create(el,{})
+  })
 
-  var el = document.getElementById('list')  
-
-  var sortable = Sortable.create(el,{})
 
 </script>
     {% if request.user.is_authenticated %}
