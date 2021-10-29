@@ -102,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-ALLOWED_HOSTS = ['45.90.109.107', 'localhost', '127.0.0.1', 'mi.leyendo.online']
+ALLOWED_HOSTS = ['45.90.109.107', 'localhost', '127.0.0.1', 'mi.leyendo.online', '10a7-190-182-238-248.ngrok.io' ]
 
 
 
