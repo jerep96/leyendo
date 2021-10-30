@@ -65,6 +65,7 @@ class Url(models.Model):
     phone = models.TextField()
     mail = models.TextField()
     website = models.TextField()
+    tipo = models.TextField()
 
     class Meta:
         ordering = ['-timestamp']

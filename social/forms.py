@@ -53,10 +53,12 @@ class UrlForm(forms.ModelForm):
                               required=False)
     modo = forms.ChoiceField(label='Seleccione un modo', widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}),
                              choices=MODO)
+    
+    tipo = forms.CharField(widget=forms.HiddenInput(), initial='url')
 
     class Meta:
         model = Url
-        fields = ['title', 'content', 'modo']
+        fields = ['title', 'content', 'modo', 'tipo']
 
 
 class TextForm(forms.ModelForm):
@@ -66,10 +68,11 @@ class TextForm(forms.ModelForm):
         attrs={'rows': 2, 'placeholder': 'Añade una Texto', 'class': 'form-control'}), required=False)
     modo = forms.ChoiceField(label='Seleccione un modo', widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}),
                              choices=MODO)
+    tipo = forms.CharField(widget=forms.HiddenInput(), initial='text')
 
     class Meta:
         model = Url
-        fields = ['title', 'content', 'modo']
+        fields = ['title', 'content', 'modo', 'tipo']
 
 
 class PhoneForm(forms.ModelForm):
@@ -79,10 +82,11 @@ class PhoneForm(forms.ModelForm):
         attrs={'rows': 2, 'placeholder': 'Añade un Telefono', 'class': 'form-control'}), required=False)
     modo = forms.ChoiceField(label='Seleccione un modo', widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}),
                              choices=MODO)
+    tipo = forms.CharField(widget=forms.HiddenInput(), initial='phone')
 
     class Meta:
         model = Url
-        fields = ['title', 'phone', 'modo']
+        fields = ['title', 'phone', 'modo', 'tipo']
 
 
 class LocationForm(forms.ModelForm):
@@ -92,10 +96,11 @@ class LocationForm(forms.ModelForm):
         attrs={'rows': 2, 'placeholder': 'Añade la Url de su ubicacion', 'class': 'form-control'}), required=False)
     modo = forms.ChoiceField(label='Seleccione un modo', widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}),
                              choices=MODO)
+    tipo = forms.CharField(widget=forms.HiddenInput(), initial='location')
 
     class Meta:
         model = Url
-        fields = ['title', 'location', 'modo']
+        fields = ['title', 'location', 'modo', 'tipo']
 
 
 class FileForm(forms.ModelForm):
@@ -104,10 +109,11 @@ class FileForm(forms.ModelForm):
     archivo = forms.FileField(label='Añade un Archivo', required=False)
     modo = forms.ChoiceField(label='Seleccione un modo', widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}),
                              choices=MODO)
+    tipo = forms.CharField(widget=forms.HiddenInput(), initial='file')
 
     class Meta:
         model = Url
-        fields = ['title', 'archivo', 'modo']
+        fields = ['title', 'archivo', 'modo', 'tipo']
 
 
 class MailForm(forms.ModelForm):
@@ -117,10 +123,11 @@ class MailForm(forms.ModelForm):
         attrs={'rows': 2, 'placeholder': 'Añade una direccion de Mail', 'class': 'form-control'}), required=False)
     modo = forms.ChoiceField(label='Seleccione un modo', widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}),
                              choices=MODO)
+    tipo = forms.CharField(widget=forms.HiddenInput(), initial='email')                             
 
     class Meta:
         model = Url
-        fields = ['title', 'mail', 'modo']
+        fields = ['title', 'mail', 'modo', 'tipo']
 
 
 class WalletForm(forms.ModelForm):
@@ -130,10 +137,11 @@ class WalletForm(forms.ModelForm):
         attrs={'rows': 2, 'placeholder': 'Añade una direccion de Wallet', 'class': 'form-control'}), required=False)
     modo = forms.ChoiceField(label='Seleccione un modo', widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}),
                              choices=MODO)
+    tipo = forms.CharField(widget=forms.HiddenInput(), initial='wallet')                                
 
     class Meta:
         model = Url
-        fields = ['title', 'content', 'modo']
+        fields = ['title', 'content', 'modo', 'tipo']
 
 
 class ContactForm(forms.ModelForm):
@@ -152,10 +160,11 @@ class ContactForm(forms.ModelForm):
         attrs={'rows': 2, 'placeholder': 'Sitio Web', 'class': 'form-control'}), required=False)
     modo = forms.ChoiceField(label='Seleccione un modo:',
                              widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}), choices=MODO)
+    tipo = forms.CharField(widget=forms.HiddenInput(), initial='contact')                                
 
     class Meta:
         model = Url
-        fields = ['title', 'company', 'location', 'phone', 'mail', 'website', 'modo']
+        fields = ['title', 'company', 'location', 'phone', 'mail', 'website', 'modo', 'tipo']
 
 
 class EditProfileForm(forms.ModelForm):

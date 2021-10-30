@@ -238,20 +238,18 @@ def link(request, username):
 
     urls = Url.objects.filter(user__username=user).values()
     urls2 = urls.filter(modo__icontains=modoPerfil)
+    tipo = urls.values('tipo')
     # return HttpResponse(urls)
     context = {'urls': urls2, 'usuario': usuarios, 'user': user, 'colorboton': colorboton, 'colorfondo': colorfondo,
-               'urlimg': urlimg, 'portadaB': portadaB, 'portadaS': portadaS, 'portadaO': portadaO}
+               'urlimg': urlimg, 'portadaB': portadaB, 'portadaS': portadaS, 'portadaO': portadaO, 'tipo':tipo}
     return render(request, 'social/link.html', context)
 
 
 def ver(request, username):
     user = username
     usuarios = Profile.objects.filter(user__username=user).values()
-    colorboton = usuarios.values('colorBoton')
-    modoPerfil = usuarios.values('modo')
-    portada = usuarios.values('portada')
     urls = Url.objects.filter(user__username=user).values()
-    urls2 = urls.filter(modo__icontains=modoPerfil)
+    tipo = urls.values('tipo')
     return HttpResponse(urls)
 
 

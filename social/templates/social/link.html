@@ -3,18 +3,22 @@
 <html>
 <head>
 	<title>Leyendo</title>
-	<script type="text/javascript" src="{% static 'nfc.js' %}"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="{% static 'FileSaver.js' %}"></script>	
 	<link rel="shortcut icon" href="../../static/favicon.png">
 
 	<link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
 <script type="text/javascript">
+
+
+
 	function copiarAlPortapapeles(id_elemento) {
 
 	  // Crea un campo de texto "oculto"
@@ -38,6 +42,38 @@
 
 	  alert("URL copiada")
 	}
+
+
+/**	$("#guardar").click(function(){
+		var blob = new Blob(['Prueba'],
+		{type: "text/plain;charset=utf-8"}
+		);
+		saveAs(blob, 'example.txt')
+	})**/
+
+	function generarVCF(){
+		var blob = new Blob([BEGIN: VCARD
+VERSION: 3.0
+N: nombre
+FN: 
+ORG: company
+TEL; CELULAR; VOZ: phone
+ADR; TRABAJO:; location
+URL; TRABAJO: website
+CORREO ELECTRÓNICO, INTERNET: mail
+END: VCARD]);
+		saveAs(blob, 'example.vcf')
+	}
+	function capturarGuardar(){
+		nombre = $("#nombre").val()
+		company = $("#company").val()
+		location = $("#location").val()
+		phone = $("#phone").val()
+		mail = $("#mail").val()
+		website = $("#website").val()
+		generarVCF(nombre,company,location,phone,mail,website)
+		
+	}
 </script>
 {% for usuarios in usuario %}
 <body class="{{ usuarios.colorFondo }}">
@@ -58,6 +94,7 @@
 <div class="container">
 	<div class="row align-items-center">
 		<div class="col">
+			<button id="guardar" onclick="capturarGuardar()">Descargar</button>
 			{% for usuarios in usuario %}
                 {% if usuarios.modo == 'Business' %}
 			        <center><img src="../../../media/{{ usuarios.imageB }}" class="circle" alt="..."></center>
@@ -82,12 +119,31 @@
 		<div class="col-md-8 offset-md-2 col-sm-12 d-grid gap-2">
 			{% for url in urls %}
 				{% for usuarios in usuario %}
-					
-					{% if url.archivo %}
-	        	<a href ="../../../media/{{ url.archivo }}" type="button" target="_blank" class="btn block {{ usuarios.colorBoton }}">{{ url.title }}</a>
-	        {% else %}
-	        	<a href ="{{ url.content }}" type="button" target="_blank" class="btn block {{ usuarios.colorBoton }}">{{ url.title }}</a>
-	        {% endif %}
+					{% if tipo == 'text' %}
+					<p id="copy_data" style="display: none;">{{ url.content }}</p>
+					<button class="btn block {{ usuarios.colorBoton }}" onclick="copiarAlPortapapeles('copy_data')" id="copy_url"></button>
+					{elif tipo == 'phone'}
+					<a href ="tel:{{url.phone}}" type="button" target="_blank" class="btn block {{ usuarios.colorBoton }}">{{ url.title }}</a>
+					{elif tipo == 'location'}
+					<a href ="{{ url.location }}" type="button" target="_blank" class="btn block {{ usuarios.colorBoton }}">{{ url.title }}</a>
+					{elif tipo == 'file'}
+					<a href ="../../../media/{{ url.archivo }}" type="button" target="_blank" class="btn block {{ usuarios.colorBoton }}">{{ url.title }}</a>
+					{elif tipo == 'email'}
+					<a href ="mailto:{{url.mail}}" type="button" target="_blank" class="btn block {{ usuarios.colorBoton }}">{{ url.title }}</a>
+					{elif tipo == 'wallet'}
+					<p id="copy_data" style="display: none;">{{ url.content }}</p>
+					<button class="btn block {{ usuarios.colorBoton }}" onclick="copiarAlPortapapeles('copy_data')" id="copy_url"></button>
+					{elif tipo == 'contact'}
+					<p id="nombre">{{url.title}}</p>
+					<p id="compania">{{url.company}}</p>
+					<p id="location">{{url.location}}</p>
+					<p id="phone">{{url.phone}}</p>
+					<p id="mail">{{url.mail}}</p>
+					<p id="website">{{url.website}}</p>
+					<a class="btn block {{ usuarios.colorBoton }}"></a>
+					{else}
+					<a href ="{{ url.content }}" type="button" target="_blank" class="btn block {{ usuarios.colorBoton }}">{{ url.title }}</a>
+					{% endif %}
 				{% endfor %}	
 			{% endfor %}
 		</div>	
