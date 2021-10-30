@@ -108,7 +108,7 @@ def url(request, type):
     # si es archivo
     elif type == 'file':
         if request.method == 'POST':
-            form = FileForm(request.POST)
+            form = FileForm(request.POST, request.FILES)
             if form.is_valid():
                 post = form.save(commit=False)
                 post.user = current_user
@@ -208,16 +208,109 @@ def eliminarProducto(request, urls):
 
 
 @login_required
-def editarUrl(request, title):
-    url = None
-    if title:
-        url = Url.objects.filter(title=title).first()
-        form = UrlForm(instance=url)
-    if request.method == 'POST':
-        form = UrlForm(request.POST, instance=url)
-        if form.is_valid():
-            form.save()
-            return redirect('feed')
+def editarUrl(request, title, type):
+    if type == 'url':
+        url = None
+        if title:
+            url = Url.objects.filter(title=title).first()
+            form = UrlForm(instance=url)
+        if request.method == 'POST':
+            form = UrlForm(request.POST, instance=url)
+            if form.is_valid():
+                form.save()
+                return redirect('feed')
+    if type == 'file':
+        file = None
+        if title:
+            file = Url.objects.filter(title=title).first()
+            form = FileForm(instance=file)
+            if request.method == 'POST':
+                form = FileForm(request.POST, request.FILES, instance=file)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Su Archivo se cargo correctamente')
+                    # return HttpResponse(request)
+                    return redirect('feed')
+        else:
+            form = FileForm()
+    if type == 'text':
+        text = None
+        if title:
+            text = Url.objects.filter(title=title).first()
+            form = TextForm(instance=text)
+            if request.method == 'POST':
+                form = TextForm(request.POST, instance=text)
+                if form.is_valid():
+                    form.save()
+                    # return HttpResponse(request)
+                    return redirect('feed')
+        else:
+            form = TextForm()
+    if type == 'location':
+        location = None
+        if title:
+            location = Url.objects.filter(title=title).first()
+            form = LocationForm(instance=location)
+            if request.method == 'POST':
+                form = LocationForm(request.POST, instance=location)
+                if form.is_valid():
+                    form.save()
+                    # return HttpResponse(request)
+                    return redirect('feed')
+        else:
+            form = LocationForm()
+    if type == 'contact':
+        contact = None
+        if title:
+            contact = Url.objects.filter(title=title).first()
+            form = ContactForm(instance=contact)
+            if request.method == 'POST':
+                form = ContactForm(request.POST, instance=contact)
+                if form.is_valid():
+                    form.save()
+                    # return HttpResponse(request)
+                    return redirect('feed')
+        else:
+            form = ContactForm()
+    if type == 'phone':
+        phone = None
+        if title:
+            phone = Url.objects.filter(title=title).first()
+            form = PhoneForm(instance=phone)
+            if request.method == 'POST':
+                form = PhoneForm(request.POST, instance=phone)
+                if form.is_valid():
+                    form.save()
+                    # return HttpResponse(request)
+                    return redirect('feed')
+        else:
+            form = PhoneForm()
+    if type == 'email':
+        mail = None
+        if title:
+            mail = Url.objects.filter(title=title).first()
+            form = MailForm(instance=mail)
+            if request.method == 'POST':
+                form = MailForm(request.POST, instance=mail)
+                if form.is_valid():
+                    form.save()
+                    # return HttpResponse(request)
+                    return redirect('feed')
+        else:
+            form = MailForm()
+    if type == 'wallet':
+        wallet = None
+        if title:
+            wallet = Url.objects.filter(title=title).first()
+            form = WalletForm(instance=wallet)
+            if request.method == 'POST':
+                form = WalletForm(request.POST, instance=wallet)
+                if form.is_valid():
+                    form.save()
+                    # return HttpResponse(request)
+                    return redirect('feed')
+        else:
+            form = WalletForm()
     return render(request, 'social/edit.html', {'form': form})
 
 

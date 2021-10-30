@@ -1,12 +1,12 @@
-BEGIN: VCARD
-VERSION: 3.0
-N: Doe, John
-FN: John Doe
-ORG: Tirhaca Juego Corporación
-TÍTULO: Programador
-TEL; CELULAR; VOZ: (555) 555-4868
-TEL; WORK; FAX: (704) 555-4864
-ADR; TRABAJO:; Tirhaca Corporation; 3131 Sunstone Dr.; Charleton, Carolina del Norte; 28083; EE.UU.
-URL; TRABAJO: http: //www.contactswebsiteURL.com
-CORREO ELECTRÓNICO, INTERNET: jdoe11@tirhakah.com
-END: VCARD
+BEGIN:VCARD
+VERSION:3.0
+N:Doe, John
+FN:John Doe
+ORG:Tirhaca Juego Corporación
+TÍTULO:Programador
+TEL;CELULAR;VOZ:(555) 555-4868
+TEL;WORK;FAX:(704) 555-4864
+ADR;TRABAJO:;Tirhaca Corporation;3131 Sunstone Dr.;Charleton, Carolina del Norte;28083;EE.UU.
+URL;TRABAJO:http://www.contactswebsiteURL.com
+CORREO ELECTRÓNICO,INTERNET:jdoe11@tirhakah.com
+END:VCARD

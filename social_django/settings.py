@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '#^z_7hd(538h=l8luekkv@&12sz#^oq*ferugz4k69u!x%9ti)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True       
+DEBUG = True
 
 #ALLOWED_HOSTS = ['127.0.0.1', '.localhost']
 
@@ -102,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-ALLOWED_HOSTS = ['45.90.109.107', 'localhost', '127.0.0.1', 'mi.leyendo.online', '8d39-190-182-238-248.ngrok.io' ]
+ALLOWED_HOSTS = ['45.90.109.107', 'localhost', '127.0.0.1', 'mi.leyendo.online', '643d-179-62-184-102.ngrok.io']
 
 
 

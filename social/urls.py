@@ -14,7 +14,7 @@ urlpatterns = [
 	path('logout/', LogoutView.as_view(template_name='social/index.html'), name='logout'),
 	path('post/<str:type>', views.url, name='post'),
 	path('eliminar/<str:urls>', views.eliminarProducto, name='eliminar'),
-	path('editar/<str:title>', views.editarUrl, name='editar'),
+	path('editar/<str:title>/<str:type>', views.editarUrl, name='editar'),
 	path('leyendo/<str:username>/', views.link, name='link'),
 	path('ver/<str:username>/', views.ver, name='ver'),
 	path('editprofile/<str:username>/', views.editprofile, name='editprofile'),

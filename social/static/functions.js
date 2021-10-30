@@ -19,7 +19,7 @@ function copiarAlPortapapeles(id_elemento) {
 	  // Elimina el campo de la página
 	  document.body.removeChild(aux);
 
-	  alert("URL copiada")
+	  alert("Copiado con éxito")
 	}
 
 $(document).ready(function(){
@@ -153,4 +153,68 @@ function saveS(){
 function saveO(){
     let formO = document.getElementById("formNameO");
     formO.submit();
+}
+
+function capturarGuardar() {
+    let navegador = navigator.userAgent.toLowerCase();
+    let tipoCadena = 0
+    if(navegador.indexOf('chrome') > -1){
+        tipoCadena = 1
+    } else if(navegador.indexOf('firefox') > -1){
+        tipoCadena = 1
+    } else if(navegador.indexOf('opera') > -1){
+        tipoCadena = 1
+    } else {
+        tipoCadena = 2
+    }
+    console.log(navegador)
+    console.log(tipoCadena)
+
+    let nombre = document.getElementById("nombre").textContent
+    let company = document.getElementById("company").textContent
+    let location = document.getElementById("location").textContent
+    let phone = document.getElementById("phone").textContent
+    let mail = document.getElementById("mail").textContent
+    let website = document.getElementById("website").textContent
+    if (tipoCadena === 1) {
+        cadena = 'BEGIN:VCARD\n'
+        cadena += 'VERSION:3.0\n'
+        cadena += 'N:' + nombre +'\n'
+        cadena += 'FN:' + nombre + '\n'
+        cadena += 'ORG:' + company + '\n'
+        cadena += 'TEL;waid='+ phone + ':' + phone + '\n'
+        // cadena += 'X-ABLabel:M&oacute;vil' + '\n'
+        cadena += 'ADR:' + location + '\n'
+        cadena += 'URL:' + website + '\n'
+        cadena += 'EMAIL;type=INTERNET:' + mail + '\n'
+        // cadena += 'item2.X-ABLabel:Casa' + '\n'
+        cadena += 'END:VCARD'
+
+        console.log(cadena)
+        let blob = new Blob([cadena]);
+        saveAs(blob, `${nombre}.vcf`)
+    } else if (tipoCadena === 2) {
+        cadena = 'BEGIN:VCARD\n'
+        cadena += 'VERSION:3.0\n'
+        cadena += 'N:' + nombre +'\n'
+        cadena += 'FN:' + nombre + '\n'
+        cadena += 'ORG:' + company + '\n'
+        cadena += 'TEL;waid='+ phone + ':' + phone + '\n'
+        // cadena += 'X-ABLabel:M&oacute;vil' + '\n'
+        cadena += 'ADR:' + location + '\n'
+        cadena += 'URL:' + website + '\n'
+        cadena += 'CORREO ELECTRÓNICO,INTERNET:' + mail + '\n'
+        // cadena += 'item2.X-ABLabel:Casa' + '\n'
+        cadena += 'END:VCARD'
+        console.log(cadena)
+        let blob = new Blob([cadena]);
+        let fileLink = document.createElement("a");
+
+        fileLink.href = window.URL.createObjectURL(blob);
+        fileLink.setAttribute("download", `${nombre}.vcf`);
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
+        // saveAs(blob, `${nombre}.vcf`)
+    }
 }

@@ -20,7 +20,7 @@
                     <h5 class="mb-1">{{ url.title }} - {{url.modo|title}}</h5>
                     <small>{{ url.timestamp|naturaltime }}</small>
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="{% url 'editar' title=url.title %}">
+                        <a href="{% url 'editar' title=url.title type=url.tipo %}">
                           <span class="material-icons">create</span>
                         </a>
                         <a href="{% url 'eliminar' urls=url.title %}">
