@@ -57,6 +57,7 @@ class Url(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='urls')
     timestamp = models.DateTimeField(default=timezone.now)
     title = models.TextField()
+    tipo = models.CharField(default='url', max_length=50, null=False, blank=False)
     modo = models.CharField(default='business', max_length=50, choices=MODO, null=True, blank=True)
     content = models.TextField()
     archivo = models.FileField(upload_to = 'static', null=True, blank=True)
@@ -65,7 +66,6 @@ class Url(models.Model):
     phone = models.TextField()
     mail = models.TextField()
     website = models.TextField()
-    tipo = models.CharField(default='url', max_length=50)
 
     class Meta:
         ordering = ['-timestamp']
