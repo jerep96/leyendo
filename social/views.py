@@ -334,7 +334,7 @@ def link(request, username):
     tipo = urls.values('tipo')
     # return HttpResponse(urls)
     context = {'urls': urls2, 'usuario': usuarios, 'user': user, 'colorboton': colorboton, 'colorfondo': colorfondo,
-               'urlimg': urlimg, 'portadaB': portadaB, 'portadaS': portadaS, 'portadaO': portadaO, 'tipo':tipo}
+               'urlimg': urlimg, 'portadaB': portadaB, 'portadaS': portadaS, 'portadaO': portadaO, 'tipo': tipo}
     return render(request, 'social/link.html', context)
 
 
