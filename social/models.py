@@ -68,7 +68,7 @@ class Url(models.Model):
     phone = models.TextField()
     mail = models.TextField()
     website = models.TextField()
-    lookup_id = models.UUIDField(default=uuid.uuid4, editable=False, db_index=True)
+    lookup_id = models.UUIDField(default=uuid.uuid4, db_index=True)
     order = models.IntegerField(blank=False, default=100_000)
 
     class Meta:
