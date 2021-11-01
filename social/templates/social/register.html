@@ -50,6 +50,7 @@
 	{{ form }}
 	<div class="d-grid gap-2">
 		<button type="submit"  class="btn btn-outline-dark">{{ boton }}</button>
+		<center><a href="{% url 'login' %}"><u>Iniciar Sesion</u></a></center>
 	</div>
 </form>
 {% if request.user.is_authenticated %}
