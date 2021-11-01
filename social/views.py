@@ -1,4 +1,7 @@
+from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from django.views.decorators.http import require_POST
+
 from .models import *
 from .forms import *
 from django.contrib import messages
@@ -9,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def feed(request):
     posts = Post.objects.all()
-    urls = Url.objects.filter(user=request.user)
+    urls = Url.objects.filter(user=request.user).order_by('order')
     context = {'urls': urls}
     return render(request, 'social/feed.html', context)
 
@@ -350,7 +353,8 @@ def link(request, username):
     else:
         urlimg = 'logo_black.png'
 
-    urls = Url.objects.filter(user__username=user).values()
+    url = Url.objects.all().order_by('order')
+    urls = url.filter(user__username=user).values()
     urls2 = urls.filter(modo__icontains=modoPerfil)
     tipo = urls.values('tipo')
     # return HttpResponse(urls)
@@ -373,3 +377,24 @@ def index(request):
 
 def actions(request):
     return render(request, 'actions.html')
+
+
+@require_POST
+def save_new_ordering(request):
+    form = OrderingForm(request.POST)
+
+    if form.is_valid():
+        ordered_ids = form.cleaned_data["ordering"].split(',')
+
+        with transaction.atomic():
+            current_order = 1
+            for lookup_id in ordered_ids:
+                if lookup_id:
+                    group = Url.objects.get(lookup_id__exact=lookup_id)
+                    group.order = current_order
+                    group.save()
+                    current_order += 1
+    else:
+        return HttpResponse('no anda un pingo')
+    return redirect('feed')
+

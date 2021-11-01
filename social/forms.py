@@ -208,3 +208,7 @@ class EditNameForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['nombreB', 'nombreS', 'nombreO']
+
+
+class OrderingForm(forms.Form):
+    ordering = forms.CharField()

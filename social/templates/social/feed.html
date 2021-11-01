@@ -3,8 +3,39 @@
 {% block content %}
 <script>
   $(document).ready(function () {
-      let el = document.getElementById('list');
-      let sortable = Sortable.create(el, {});
+      let group = document.getElementById('list');
+      let sortable = Sortable.create(group, {
+          handle: '.handle',
+          dragClass: 'dragged',
+          chosenClass: 'sortableChosen',
+          animation: 150,
+          ghostClass: 'blue-background-class',
+          onChange: () => {
+                saveOrderingButton.disabled = false;
+            }
+      });
+    const saveOrderingButton = document.getElementById('saveOrdering');
+    const orderingForm = document.getElementById('orderingForm');
+    const formInput = orderingForm.querySelector('#orderingInput');
+    console.log(formInput)
+    const rows = document.getElementById("list").querySelectorAll('h5');
+    console.log('filas', rows)
+
+    function saveOrdering() {
+        const rows = document.getElementById("list").querySelectorAll('h5');
+        let ids = [];
+        for (let row of rows) {
+            ids.push(row.dataset.lookup);
+        }
+        formInput.value = ids.join(',');
+        console.log(formInput)
+        orderingForm.submit();
+    }
+
+    saveOrderingButton.addEventListener('click', saveOrdering);
+
+
+
   })
 
 
@@ -15,9 +46,9 @@
           <div class="portlet">
             <div id="list" class="list-group  p-2">
               {% for url in urls %}
-                <div class="list-group-item portlet-content list-group-item-action">
+                <div class="list-group-item portlet-content list-group-item-action" data-lookup="{{ url.lookup_id }}">
                   <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{ url.title }} - {{url.modo|title}}</h5>
+                      <h5 data-lookup="{{ url.lookup_id }}" class="mb-1"><small><span class="handle"></span></small>  {{ url.title }} - {{url.modo|title}}</h5>
                     <small>{{ url.timestamp|naturaltime }}</small>
                       <div class="btn-group" role="group" aria-label="Basic example">
                         <a href="{% url 'editar' title=url.title type=url.tipo %}">
@@ -34,9 +65,38 @@
                 </div>
               {% endfor %}
             </div>
+          <form id="orderingForm" method="post" action="{% url 'save-group-ordering' %}">
+            {% csrf_token %}
+            <input type="hidden" id="orderingInput" name="ordering">
+          </form>
+          <a id="saveOrdering" class="profile" style="cursor: pointer;">Guardar</a>
           </div>
         </div>
 
 
     {% endif %}
+<style>
+.handle {
+    display: inline-block;
+    border-top: 3px solid;
+    width: 20px;
+    height: 10px;
+    padding-top: 5px;
+    cursor: grab;
+    margin-right: 10px;
+}
+.handle:after, .handle:before {
+    display: block;
+    content: "";
+    padding-top: 5px;
+    border-top: 3px solid;
+}
+.handle:hover, .handle:hover:before, .handle:hover:after {
+    border-color: var(--primary);
+}
+.handle:active, .handle:active:before, .handle:active:after {
+    cursor: grabbing;
+}
+
+</style>
 {% endblock %}

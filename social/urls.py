@@ -18,7 +18,8 @@ urlpatterns = [
 	path('leyendo/<str:username>/', views.link, name='link'),
 	path('ver/<str:username>/', views.ver, name='ver'),
 	path('editprofile/<str:username>/', views.editprofile, name='editprofile'),
-	path('action', views.actions, name='action')
+	path('action', views.actions, name='action'),
+	path('save-group-ordering', views.save_new_ordering, name='save-group-ordering'),
 	
 	
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
