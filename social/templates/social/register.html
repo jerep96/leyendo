@@ -18,11 +18,14 @@
 </div>
 <div class="profile">
     <img id="id_nombreB" class="circle2" src="{{ user.profile.imageB.url }}" alt="">
-    <h2 id="nombreB" ondblclick="changeNameB()">{{ user.profile.nombreB }}</h2>
+    <h2 id="nombreB" onclick="changeNameB()">{{ user.profile.nombreB }}
+		<br><center><span class="material-icons" title="Cambiar foto">edit</span></center></h2>
     <img id="id_nombreS" class="circle2" src="{{ user.profile.imageS.url }}" alt="">
-    <h2 id="nombreS" ondblclick="changeNameS()">{{ user.profile.nombreS }}</h2>
+    <h2 id="nombreS" onclick="changeNameS()">{{ user.profile.nombreS }}
+		<br><center><span class="material-icons" title="Cambiar foto">edit</span></center></h2>
     <img id="id_nombreO" class="circle2" src="{{ user.profile.imageO.url }}" alt="">
-    <h2 id="nombreO" ondblclick="changeNameO()">{{ user.profile.nombreO }}</h2>
+    <h2 id="nombreO" onclick="changeNameO()">{{ user.profile.nombreO }}
+		<br><center><span class="material-icons" title="Cambiar foto">edit</span></center></h2>
     <form class="form" method="get" enctype="multipart/form-data" id="formNameB">
         {% csrf_token %}
         <h2>{{ formName.nombreB }} <span class="material-icons btn" onclick="saveB();">save</span><span class="material-icons btn" onclick="history.back();">cancel</span></h2>
