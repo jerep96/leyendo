@@ -318,11 +318,32 @@ def link(request, username):
     user = username
     usuarios = Profile.objects.filter(user__username=user).values()
     modoPerfil = usuarios.values('modo')
-    colorboton = usuarios.values('colorBoton')
+    colorboton = usuarios.values('colorBoton')[0]['colorBoton']
     colorfondo = usuarios.values('colorFondo')
     portadaB = usuarios.values('portadaB')
     portadaS = usuarios.values('portadaS')
     portadaO = usuarios.values('portadaO')
+
+    if colorboton == 'amarillo':
+        colorShare = 'yellow'
+    if colorboton == 'fucsia':
+        colorShare = '#FF33FF'
+    if colorboton == 'blanco':
+        colorShare = 'white'
+    if colorboton == 'negro':
+        colorShare = 'black'
+    if colorboton == 'rojo':
+        colorShare = '#E74C3C'
+    if colorboton == 'azul':
+        colorShare = '#2980B9'
+    if colorboton == 'verde':
+        colorShare = '#58D68D'
+    if colorboton == 'naranja':
+        colorShare = '#F39C12'
+    if colorboton == 'gris':
+        colorShare = '#D5D8DC'
+    if colorboton == 'violeta':
+        colorShare = '#A569BD'
 
     if colorfondo == 'Negro' or 'negro':
         urlimg = 'logo_white.png'
@@ -334,7 +355,7 @@ def link(request, username):
     tipo = urls.values('tipo')
     # return HttpResponse(urls)
     context = {'urls': urls2, 'usuario': usuarios, 'user': user, 'colorboton': colorboton, 'colorfondo': colorfondo,
-               'urlimg': urlimg, 'portadaB': portadaB, 'portadaS': portadaS, 'portadaO': portadaO, 'tipo': tipo}
+               'urlimg': urlimg, 'portadaB': portadaB, 'portadaS': portadaS, 'portadaO': portadaO, 'tipo': tipo, 'colorShare': colorShare}
     return render(request, 'social/link.html', context)
 
 

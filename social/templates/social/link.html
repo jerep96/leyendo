@@ -14,6 +14,8 @@
 
 	<link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'font.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'font2.css' %}">
 </head>
 <script type="text/javascript" src="../../static/functions.js"></script>
 <script type="text/javascript">
@@ -79,6 +81,12 @@
             fileLink.click();
             // saveAs(blob, `${nombre}.vcf`)
         }
+    }
+    function showShare(){
+        let shareLinks = document.getElementById('shareLinks');
+        shareLinks.hidden
+        ? shareLinks.hidden = false
+        : shareLinks.hidden = true
     }
 </script>
 {% for usuarios in usuario %}
@@ -165,15 +173,22 @@
 	</div>
 </div>
 <p id="copy_data" style="display: none;">mi.leyendo.online/leyendo/{{ user }}</p>
-<button class="btn-flotante" onclick="copiarAlPortapapeles('copy_data')" id="copy_url"><span class="material-icons">share</span></button>
-  <br>
+    <div class="social-bar" id="shareLinks" hidden>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://mi.leyendo.online/leyendo/{{ user }}" class="icon icon-facebook" target="_blank"></a>
+        <a href="https://twitter.com/intent/tweet?url=https://mi.leyendo.online/leyendo/{{ user }}" class="icon icon-twitter" target="_blank"></a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://mi.leyendo.online/leyendo/{{ user }}" class="icon icon-linkedin2" target="_blank"></a>
+        <a href="https://api.whatsapp.com/send?text=https://mi.leyendo.online/leyendo/{{ user }}" class="icon icon-whatsapp" target="_blank"></a>
+        <a href="#" onclick="copiarAlPortapapeles('copy_data')" class="icon icon-copy"></a>
+    </div>
+    <button class="btn-flotante" style="background-color: {{ colorShare }};" onclick="showShare()" id="copy_url"><span class="material-icons">share</span></button>
+<br>
   <br>
   <br>
   <br>
   <br>
 	<br>
 	<br>
-	<br>  
+	<br>
 <footer class="text-center">
 {% for usuarios in usuario %}
   <!-- Grid container -->
@@ -207,3 +222,49 @@
   {% endfor %}
 </footer>
 </body>
+<style>
+    .social-bar {
+        position: fixed;
+        right: 40px;
+        top: 50%;
+        font-size: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        z-index: 100;
+    }
+    .icon {
+        color: white;
+        text-decoration: none;
+        padding: 0.7rem;
+        display: flex;
+        transition: all .5s;
+        font-size: 25px;
+    }
+    .icon-facebook {
+        background: #2E406E;
+    }
+    .icon-twitter {
+        background: #339DC5;
+    }
+    .icon-whatsapp {
+        background: #3b8e0f;
+    }
+    .icon-linkedin2 {
+        background: #3F60A5;
+    }
+    .icon-copy {
+        background: grey;
+    }
+    .icon:first-child {
+        border-radius: 1rem 1rem 0 0;
+    }
+    .icon:last-child {
+        border-radius: 0 0 1rem 1rem;
+    }
+    .icon:hover {
+        padding: 1.5rem;
+        border-radius: 1rem 1rem 1rem 1rem;
+        box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.42);
+    }
+</style>
