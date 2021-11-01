@@ -28,7 +28,9 @@
                         </a>
                       </div>
                     </div>
+                  {% if url.tipo != 'text' %}  
                   <p class="mb-1">{{ url.content }}</p>
+                  {% endif %}
                 </div>
               {% endfor %}
             </div>
