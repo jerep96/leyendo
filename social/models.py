@@ -63,7 +63,7 @@ class Url(models.Model):
     modo = models.CharField(default='business', max_length=50, choices=MODO, null=True, blank=True)
     content = models.TextField()
     archivo = models.FileField(upload_to = 'static', null=True, blank=True)
-    company = models.TextField()
+    company = models.TextField(null=True)
     location = models.TextField()
     phone = models.TextField()
     mail = models.TextField()
