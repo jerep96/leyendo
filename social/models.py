@@ -61,15 +61,6 @@ class Url(models.Model):
     title = models.TextField()
     tipo = models.TextField(default='url', null=False, blank=False)
     modo = models.CharField(default='business', max_length=50, choices=MODO, null=True, blank=True)
-<<<<<<< HEAD
-    content = models.TextField()
-    archivo = models.FileField(upload_to = 'static', null=True, blank=True)
-    company = models.TextField(null=True)
-    location = models.TextField()
-    phone = models.TextField()
-    mail = models.TextField()
-    website = models.TextField()
-=======
     content = models.TextField(null=True, blank=True)
     archivo = models.FileField(upload_to='static', null=True, blank=True)
     company = models.TextField(null=True, blank=True)
@@ -77,7 +68,6 @@ class Url(models.Model):
     phone = models.TextField(null=True, blank=True)
     mail = models.TextField(null=True, blank=True)
     website = models.TextField(null=True, blank=True)
->>>>>>> 0da4793... fix
     lookup_id = models.UUIDField(default=uuid.uuid4, db_index=True)
     order = models.IntegerField(blank=False, default=100_000)
 
