@@ -1,3 +1,4 @@
+import os
 import uuid
 
 from django.db import models
@@ -24,12 +25,24 @@ COLOR = (
 )
 
 
+def user_directory_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = '{}.{}'.format(uuid.uuid4().hex[:10], ext)
+    sub_folder = 'media/file'
+    if ext.lower() in ["jpg", "png", "gif"]:
+        sub_folder = "media/avatar"
+    if ext.lower() in ["pdf", "docx"]:
+        sub_folder = "media/document"
+    return os.path.join(str(instance.user.id), sub_folder, filename)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    uid = models.UUIDField(default=uuid.uuid4, editable=True)
     nombreB = models.CharField(default='Sin nombre', max_length=50)
     nombreS = models.CharField(default='Sin nombre', max_length=50)
     nombreO = models.CharField(default='Sin nombre', max_length=50)
-    imageB = models.ImageField(upload_to='photos', default='batman.png')
+    imageB = models.ImageField(upload_to=user_directory_path, default=os.path.join("avatar", "batman.png"))
     imageS = models.ImageField(upload_to='photos', default='batman.png')
     imageO = models.ImageField(upload_to='photos', default='batman.png')
     modo = models.CharField(default='Business', max_length=50, choices=MODO)
