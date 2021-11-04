@@ -53,7 +53,7 @@ class UrlForm(forms.ModelForm):
                               required=False)
     modo = forms.ChoiceField(label='Seleccione un modo', widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}),
                              choices=MODO)
-    
+
     tipo = forms.CharField(widget=forms.HiddenInput(), initial='url')
 
     class Meta:
@@ -123,7 +123,7 @@ class MailForm(forms.ModelForm):
         attrs={'rows': 2, 'placeholder': 'Añade una direccion de Mail', 'class': 'form-control'}), required=False)
     modo = forms.ChoiceField(label='Seleccione un modo', widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}),
                              choices=MODO)
-    tipo = forms.CharField(widget=forms.HiddenInput(), initial='email')                             
+    tipo = forms.CharField(widget=forms.HiddenInput(), initial='email')
 
     class Meta:
         model = Url
@@ -137,7 +137,7 @@ class WalletForm(forms.ModelForm):
         attrs={'rows': 2, 'placeholder': 'Añade una direccion de Wallet', 'class': 'form-control'}), required=False)
     modo = forms.ChoiceField(label='Seleccione un modo', widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}),
                              choices=MODO)
-    tipo = forms.CharField(widget=forms.HiddenInput(), initial='wallet')                                
+    tipo = forms.CharField(widget=forms.HiddenInput(), initial='wallet')
 
     class Meta:
         model = Url
@@ -160,7 +160,7 @@ class ContactForm(forms.ModelForm):
         attrs={'rows': 2, 'placeholder': 'Sitio Web', 'class': 'form-control'}), required=False)
     modo = forms.ChoiceField(label='Seleccione un modo:',
                              widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}), choices=MODO)
-    tipo = forms.CharField(widget=forms.HiddenInput(), initial='contact')                                
+    tipo = forms.CharField(widget=forms.HiddenInput(), initial='contact')
 
     class Meta:
         model = Url
@@ -168,12 +168,6 @@ class ContactForm(forms.ModelForm):
 
 
 class EditProfileForm(forms.ModelForm):
-    imageB = forms.ImageField(label='Seleccione una foto de perfil',
-                              widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
-    imageS = forms.ImageField(label='',
-                              widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
-    imageO = forms.ImageField(label='',
-                              widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
     portadaB = forms.ImageField(label='Seleccione una foto de portada',
                                 widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
     portadaS = forms.ImageField(label='',
@@ -189,7 +183,7 @@ class EditProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['imageB', 'imageS', 'imageO', 'portadaB', 'portadaS', 'portadaO', 'modo', 'colorBoton', 'colorFondo']
+        fields = ['portadaB', 'portadaS', 'portadaO', 'modo', 'colorBoton', 'colorFondo']
 
 
 class ModoProfileForm(forms.ModelForm):
@@ -212,3 +206,16 @@ class EditNameForm(forms.ModelForm):
 
 class OrderingForm(forms.Form):
     ordering = forms.CharField()
+
+
+class EditImageForm(forms.ModelForm):
+    imageB = forms.ImageField(label='Seleccione una foto de perfil',
+                              widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
+    imageS = forms.ImageField(label='',
+                              widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
+    imageO = forms.ImageField(label='',
+                              widget=forms.FileInput(attrs={'rows': 2, 'class': 'form-control'}), required=False)
+
+    class Meta:
+        model = Profile
+        fields = ['imageB', 'imageS', 'imageO']
