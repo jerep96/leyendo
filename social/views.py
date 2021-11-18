@@ -186,18 +186,21 @@ def editprofile(request, username):
     form = EditProfileForm(instance=user)
     formName = EditNameForm(instance=user)
     formImage = EditImageForm(instance=user)
-    if request.method == 'POST':
-        form = EditProfileForm(request.POST, request.FILES, instance=user)
-        formImage = EditImageForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            formImage.save()
-            form.save()
-            return redirect('feed')
+    # if request.method == 'POST':
+    #     form = EditProfileForm(request.POST, request.FILES, instance=user)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('feed')
     if request.method == 'GET':
         formName = EditNameForm(request.GET, instance=user)
         if formName.is_valid():
             # return HttpResponse(formName)
             formName.save()
+    if request.method == 'POST':
+        formImage = EditImageForm(request.POST, request.FILES, instance=user)
+        # return HttpResponse(formImage)
+        if formImage.is_valid():
+            formImage.save()
     return render(request, 'social/register.html', {'form': form, 'formName': formName, 'formImage': formImage, 'title': 'Editar Usuario', 'boton': 'Guardar'})
 
 

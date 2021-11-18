@@ -39,6 +39,8 @@ $(document).ready(function() {
                 fd.append('csrfmiddlewaretoken', csrf[0].value)
                 fd.append('file', blob, 'my-image.png')
 
+                console.log(fd)
+
                 $.ajax({
                     type: 'POST',
                     url: imageForm.action,
