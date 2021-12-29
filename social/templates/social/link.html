@@ -134,7 +134,7 @@
 				{% for usuarios in usuario %}
 					{% if url.tipo == 'text' %}
                         <p id="copy_data" style="display: none;">{{ url.content }}</p>
-                        <button class="btn block {{ usuarios.colorBoton }}" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ url.title }}</button>
+                        <a type="button" class="btn block {{ usuarios.colorBoton }}" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ url.title }}</a>
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
