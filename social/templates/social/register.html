@@ -48,14 +48,18 @@
 
 {% endif %}
 
-<form class="form" method="post" enctype="multipart/form-data" id="form">
-	{% csrf_token %}
-	{{ form }}
-	<div class="d-grid gap-2">
-		<button type="submit"  class="btn btn-outline-dark">{{ boton }}</button>
-		<center><a href="{% url 'login' %}"><u>Iniciar Sesion</u></a></center>
-	</div>
-</form>
+
+	<form class="form" method="post" enctype="multipart/form-data" id="form">
+		{% csrf_token %}
+		{{ form }}
+		<div class="d-grid gap-2">
+			<button type="submit"  class="btn btn-outline-dark mt-5">{{ boton }}</button>
+			{% if not  request.user.is_authenticated %}
+			<center><a href="{% url 'login' %}"><u>Iniciar Sesion</u></a></center>
+			{% endif %}	
+		</div>
+	</form>
+
 {% if request.user.is_authenticated %}
 	<div class="container">
 		<h5 class="mb-2 ms-4">Comparti tu LE:</h5>
@@ -76,11 +80,13 @@
 		<div class="row">
 			<div class="col-8 offset-5">
 				<div class="btn-group" role="group">
-					<a href="#" type="button" class="btn btn-outline-dark"><span class="material-icons">android</span></a>
-					<a href="#" type="button" class="btn btn-outline-dark">IOS</a>
+					<a href="https://vimeo.com/660745612" type="button" class="btn btn-outline-dark"><span class="material-icons">android</span></a>
+					<a href="https://vimeo.com/660719793" type="button" class="btn btn-outline-dark">IOS</a>
 				</div>
 			</div>
 		</div>
 	</div>
+{% else %}
+
 {% endif %}
 {% endblock %}
