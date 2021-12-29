@@ -18,7 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'font2.css' %}">
 </head>
 <script type="text/javascript" src="../../static/functions.js"></script>
-<script type="text/javascript">
+<script type="text/javascript"> 
     function capturarGuardar() {
         let navegador = navigator.userAgent.toLowerCase();
         let tipoCadena = 0
@@ -134,7 +134,24 @@
 				{% for usuarios in usuario %}
 					{% if url.tipo == 'text' %}
                         <p id="copy_data" style="display: none;">{{ url.content }}</p>
-                        <button class="btn block {{ usuarios.colorBoton }}" onclick="copiarAlPortapapeles('copy_data')" id="copy_url">{{ url.title }}</button>
+                        <button class="btn block {{ usuarios.colorBoton }}" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ url.title }}</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel" style="color: black;">{{ url.title }}</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                  <div class="modal-body text-black">
+                                    <p style="color: black;" >{{ url.content }}</p>                    
+                                  </div> 
+                                  <!--<div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                  </div> -->
+                              </div>
+                            </div>
+                          </div>
 					{% endif %}
                     {% if url.tipo == 'phone' %}
 					    <a href ="tel:{{url.phone}}" type="button" target="_blank" class="btn block {{ usuarios.colorBoton }}">{{ url.title }}</a>
