@@ -64,7 +64,7 @@ class UrlForm(forms.ModelForm):
 class TextForm(forms.ModelForm):
     title = forms.CharField(label='', widget=forms.TextInput(
         attrs={'rows': 2, 'placeholder': 'Añade el nombre del boton', 'class': 'form-control'}), required=True)
-    content = forms.CharField(label='', widget=forms.TextInput(
+    content = forms.CharField(label='', widget=forms.Textarea(
         attrs={'rows': 2, 'placeholder': 'Añade una Texto', 'class': 'form-control'}), required=False)
     modo = forms.ChoiceField(label='Seleccione un modo', widget=forms.Select(attrs={'rows': 2, 'class': 'form-select'}),
                              choices=MODO)
